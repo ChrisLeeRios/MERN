@@ -1,6 +1,7 @@
 // import React, { Component } from "react";
-import React from "react";
+import React, { useState } from "react";
 import classes from './PersonCardComponent.module.css'
+
 
 
 // class PersonCard extends Component {
@@ -26,18 +27,26 @@ import classes from './PersonCardComponent.module.css'
 //     }
 // }
 const PersonCard = props => {
-                return (
-                    <div className={classes.card}>
-                        <div className={classes.content}>
-                            <h1>{props.lastName}, {props.firstName} </h1>
-                            <p>Age: {props.age}</p>
-                            <p>Hair Color: {props.hairColor}</p>
-                            <button onClick={ 1 }>
-                                BirthDay Button For {props.firstName} {props.lastName} </button>
-                        </div>
-                    </div>
-                );
-        }
+    const [state, setState] = useState({
+        age: props.age
+    });
+    const chanegAge = () => {
+        setState({
+            age: state.age +1
+        })
+    }
+    return (
+        <div className={classes.card}>
+            <div className={classes.content}>
+                <h1>{props.lastName}, {props.firstName} </h1>
+                <p>Age: {state.age}</p>
+                <p>Hair Color: {props.hairColor}</p>
+                <button onClick={chanegAge}>
+                    BirthDay Button For {props.firstName} {props.lastName} </button>
+            </div>
+        </div>
+    );
+}
 
 
 export default PersonCard
