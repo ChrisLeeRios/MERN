@@ -6,6 +6,9 @@ class PersonCard extends Component {
         super(props);
         this.state = {age : this.props.age}
     }
+    // could have done thid login in a function like so 
+    // changeAge = () => {this.setState({ age: this.state.age +1 });};
+    // and the set the button onClick=(this.chanegAge)
     render() {
         return (
             <div className={classes.card}>
