@@ -1,0 +1,19 @@
+
+.tabs-header{
+  display: flex;
+  justify-content: center;
+}
+
+.tabs-header-btn{
+  font-size: 25px;
+}
+
+.the-tab-content{
+  text-align: center;
+  margin-top: 20px;
+}
+
+.active-btn{
+  background: black;
+  color: white;
+}
