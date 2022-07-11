@@ -1,0 +1,23 @@
+body{
+  background-color: rgb(41, 40, 48);
+}
+*{
+  color: white;
+}
+
+.fetch-poke-btn{
+  background-color: rgb(255, 180, 19);
+  color: rgb(0, 140, 255);
+  font-size: 25px;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.container{
+  text-align: center;
+}
+
+ul{
+  text-align: start;
+  columns: 5;
+}
