@@ -17,10 +17,10 @@ function App() {
         }
         return res.json();
       })
-      .then((pokemons) => {
-        setPokemons(pokemons.results);
+      .then((res) => {
+        setPokemons(res.results);
         setError(null);
-        console.log(pokemons.results);
+        console.log(res.results);
       })
       .catch((error) => {
         setError(error.message)
