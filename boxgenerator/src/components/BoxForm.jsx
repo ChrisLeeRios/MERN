@@ -1,11 +1,14 @@
 import React, {useState} from "react";
-import classes from './BoxDisplay.module.css'
+// import classes from './BoxDisplay.module.css'
 
 
 const BoxForm = (props) => {
     const [color, setColor] = useState("")
+
     const [colorError, setColorError] = useState("")
+
     const {/* color, */ createBox/* , handleColorChange */} = props;
+
     // const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
     const handleColorChange = (e) => {
         setColor(e.target.value)
