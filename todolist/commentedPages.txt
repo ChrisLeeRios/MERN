@@ -1,0 +1,261 @@
+APP.JS
+
+import { useState } from 'react';
+import './App.css';
+import Todo from './components/Todo';
+
+function App() {
+  /*
+  Since an input a string by default, set useState to an empty string
+  */
+  const [newTodo, setNewTodo] = useState("")
+  /* 
+    Setting the useState to an array allows it not to break when using .map
+    Would not work with null but it would help to identify certain things
+   */
+  const [todos, setTodos] = useState([])
+
+  const handleNewTodoSubmit = (event) => {
+
+    /* 
+    Whenever a form is submitted we prevent the default behavior which is refreshing the page
+    */
+
+    event.preventDefault()
+
+    /* 
+    If we want to make it impossible to add a todo that is empty we do as follows and break the 
+    function before it adds
+    */
+
+    if(newTodo.length === 0){
+      return;
+    }
+
+
+
+    /* 
+    Whenever our state is not a primitive value (string, boolean, int) like an array or object
+    we need to pass thru a new array or object
+    Otherwise it will not rerender 
+    Dont forget the [] inside 
+    Set todos containing a new array with all the todos plus the new one
+    */
+
+    // setTodos([...todos, newTodo])
+
+
+    /* 
+    We need to group some data together in order to see which todo is complete or not 
+    We can use an array or dictionary but in this case a dict is better so we can name
+    each property 
+    So we take out the above string of the newTodo and then replace it with a dictionary so 
+    we are able to track not only the newTodo but if its been completed or not
+    Now i need to change its display in the .map thats being rendered onto the page so because 
+    its an object now and needs dot notation 
+    */
+    const todoItem = {
+      text: newTodo,
+      completed: false
+    }
+
+    setTodos([...todos, todoItem])
+
+    /* 
+    In order to make the input clear after adding, we need to use 2 way data binding
+    We are gonna set newTodo to an empty string to clear the state
+    Then we need to add value={newTodo} so we can connect it to the cleared value
+    */
+
+    setNewTodo("")
+  }
+
+  /* 
+  In order to know what todo to delete, we need to pass the index so we can identify the specific one
+  We are then going to use .filter in  order to create a new todos array witht the one we deleted
+  filtered out of it
+  Filter returns a new array like .map , requires a call back  function (todo,i) 
+  Return a true to keep the item and a false to filter it out
+  So I want to return everything that its index does not match the deleted index
+  Then setTodods to the new array
+  */
+
+  const handleTodoDelete = (delInx) => {
+
+    // Though im not using todo below in the param, I passed it in because i is only
+    // accesed via the second param because when .filter executes a callback function
+    // it always passes the item first then the index 2nd. adding a _ in front of the param
+    // will take the warning away  like _todo
+
+    const filteredTodos = todos.filter((todo, i) => {
+      return i !== delInx;
+    });
+
+    setTodos(filteredTodos);
+  }
+
+  /* 
+  I want to set the todos becuse im updated them
+  I want to create a new arrray but change something
+  I want to use .map because .filter is removing not changing
+  .map keeps the array the same length
+  I want to return every index unchanged except the one that we are changing so
+  We use an if check utilizing the index to identify the one that needs changing
+  Since it is a boolean we set it to not equal itself so we can toggle true or false 
+  Then we setTodos to updated todos which is the new and changed array
+  */
+
+  const handleToggleComplete = (idx) => {
+    const updatedTodos = todos.map((todo,i) => {
+      if(idx ===i){
+        todo.completed = !todo.completed
+        // To avoid mutating todo directly, do this for real world or simple version uptop for class
+        // const updatedTodo = {...todo, complete: !todo.complete};
+        // return updatedTodo;
+      }
+
+      return todo;
+    });
+    setTodos(updatedTodos);
+  }
+
+  return (
+    <div style={{ textAlign: "center" }}>
+
+      {/* 
+      Whenever we have a form, we have an onSubmit event
+      */}
+
+      <form onSubmit={(event) => {
+        handleNewTodoSubmit(event)
+      }}>
+
+        {/* 
+      Use onChange so we can track what is inputed in the input box by updating it when stuff is typed
+      Using event.target.value the target refers to the html element 
+      that triggered the event, in this case the input. The input has a .value property which stores
+      the value of what was inputed
+      Add the value={newTodo} so we can connect it to the cleared value using 2 way data binding
+      */}
+
+        <input
+          onChange={(event) => {
+            setNewTodo(event.target.value);
+          }}
+          type="text"
+          value={newTodo}
+        />
+        <div>
+          <button>Add</button>
+        </div>
+      </form>
+
+
+      {/* 
+      This creates some space between the form and the buttons as well as a line
+      Look this up later 
+      */}
+
+      <hr/>
+
+      {/*
+      In order to display an array in jsx, we need to convert it into an array of html elements
+      Using .map does this  
+      It wants a call back function :current item- todo and the index of the item thats iterated - i 
+      Then tell it to return a div so the map can be in an html element
+      Each child needs a key and in this case the div is the child of each .map
+      The index i is unique so we pass that in
+   */}
+
+  {
+    todos.map((todo,i) => {
+
+      return <Todo 
+      key={i}
+      i={i}
+      todo={todo} 
+      handleToggleComplete={handleToggleComplete}
+      handleTodoDelete={handleTodoDelete} />
+    })}
+    </div>
+  );
+}
+
+export default App;
+
+
+-------------------------------------------------------------------------------------------------
+
+TODO.JS
+
+const Todo = (props) => {
+
+    /* 
+    To conditionally add classes 
+    */
+
+    const todoClasses = []
+
+    if (props.todo.completed) {
+        todoClasses.push("strike-through")
+    }
+
+    return (
+        // now that its here it doesnt need the key cause its rended in 
+        // a list on the Todo in the app
+        // <div key={props.i} >
+        <div >
+
+            {/*
+    Adding a check box
+    We need to connect the state of the checkbox to our todos completed state
+    Since complete is inside a state of the dictionary , I can refer to it as 
+    its own piece of state
+    We also need to use the checked property along with an onClick and a function
+    That we pass the index into so we can identify it specifically
+    Which does this : if checked then competed is true, if not checked then competed is false
+    Thats why we defaulted completed to false in the Dict earlier
+     */}
+
+            <input onChange={(event) => {
+                props.handleToggleComplete(props.i);
+            }} checked={props.todo.completed} type='checkbox' />
+
+            {/* <span>{todo}</span> */}
+
+            {/* 
+    Changed to props.todo.text because we changed what was being passed into handleNewTodoSubmit
+    from a string of newTodo to todoItem which is an object
+    We did this so we can track if the todo was completed by grouping the data both the 
+    todo as .text and the true or false of completion with .completed
+    */}
+
+            {/* 
+    Adding the conditional classes and used .join with a space because classes need to be 
+    separated by spaces 
+    */}
+
+            <span className={todoClasses.join(" ")}>{props.todo.text}</span>
+
+            {/* 
+    onCLick to know when its clicked
+    It wants a callback function{(event)} When it executes the call back function
+    it gives you the event
+    Then call the desired function in this case the delete
+    We need to pass in the index which we have access to from the .map index that
+    we are inside of,
+    so that we are able to specify the one going into the delete todo function
+    */}
+
+            <button onClick={(event) => {
+                props.handleTodoDelete(props.i);
+            }}
+                style={{ marginLeft: '10px' }}
+            >
+                Delete
+            </button>
+        </div>
+    );
+};
+
+export default Todo;
