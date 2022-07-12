@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import axios from 'axios';
+import FetchPokemon from './components/FetchPokemon';
 
 function App() {
 
@@ -29,14 +30,10 @@ function App() {
 
   return (
     <div className='container' >
-      <button onClick={handleFetchClick} className="fetch-poke-btn">FETCH POKEMON</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <hr />
-      <ul className=''>
-        {pokemons && pokemons.map((pokemon, i) =>
-          <li key={i} >{pokemon.name}</li>
-        )}
-      </ul>
+      <FetchPokemon 
+      handleFetchClick={handleFetchClick} 
+      pokemons={pokemons} 
+      error={error}/>
     </div>
   );
 }
