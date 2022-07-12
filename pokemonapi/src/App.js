@@ -9,37 +9,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
 
   const handleFetchClick = (_event) => {
-    // setIsLoading(true)
-    // // fetch('http://httpstat.us/404')
-    // axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=807")
-
-    //   // axios no lonnger needs this first part
-
-    //   // .then((res) => {
-    //   //   console.log(res)
-    //   //   if (!res.ok) {
-    //   //     throw Error(res.statusText);
-    //   //   }
-    //   //   return res.json();
-    //   // })
-
-    //   // Changed it from res.results to res.data.results becuase axios changed how it was nested 
-
-    //   .then((res) => {
-    //     console.log(res)
-    //     setPokemons(res.data.results);
-    //     setError(null);
-    //     console.log(res.data.results);
-    //   })
-    //   .catch((error) => {
-    //     setError(error.message)
-    //     console.log(error);
-    //   })
-    //   .finally(() => {
-    //     setIsLoading(false)
-    //   })
-
-    // ultra simplified version
+    setIsLoading(true)
+    //fetch('http://httpstat.us/404')
 
     axios.get('https://pokeapi.co/api/v2/pokemon?limit=807&offset807')
       .then(result => setPokemons(result.data.results))
@@ -47,6 +18,9 @@ function App() {
       .catch((error) => {
         setError(error.message)
         console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false)
       })
   }
 
