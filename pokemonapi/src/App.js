@@ -13,7 +13,10 @@ function App() {
     //fetch('http://httpstat.us/404')
 
     axios.get('https://pokeapi.co/api/v2/pokemon?limit=807&offset807')
-      .then(result => setPokemons(result.data.results))
+      // .then(result => setPokemons(result.data.results))
+      .then((result) => {
+        console.log(result)
+        setPokemons(result.data.results)})
       // .catch(err => console.log(err))
       .catch((error) => {
         setError(error.message)
