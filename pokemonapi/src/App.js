@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import axios from 'axios';
 
 function App() {
 
@@ -8,26 +9,44 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
 
   const handleFetchClick = (_event) => {
-    setIsLoading(true)
-    // fetch('http://httpstat.us/404')
-    fetch("https://pokeapi.co/api/v2/pokemon?offset=0&limit=807")
-      .then((res) => {
-        if (!res.ok) {
-          throw Error(res.statusText);
-        }
-        return res.json();
-      })
-      .then((res) => {
-        setPokemons(res.results);
-        setError(null);
-        console.log(res.results);
-      })
+    // setIsLoading(true)
+    // // fetch('http://httpstat.us/404')
+    // axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=807")
+
+    //   // axios no lonnger needs this first part
+
+    //   // .then((res) => {
+    //   //   console.log(res)
+    //   //   if (!res.ok) {
+    //   //     throw Error(res.statusText);
+    //   //   }
+    //   //   return res.json();
+    //   // })
+
+    //   // Changed it from res.results to res.data.results becuase axios changed how it was nested 
+
+    //   .then((res) => {
+    //     console.log(res)
+    //     setPokemons(res.data.results);
+    //     setError(null);
+    //     console.log(res.data.results);
+    //   })
+    //   .catch((error) => {
+    //     setError(error.message)
+    //     console.log(error);
+    //   })
+    //   .finally(() => {
+    //     setIsLoading(false)
+    //   })
+
+    // ultra simplified version
+
+    axios.get('https://pokeapi.co/api/v2/pokemon?limit=807&offset807')
+      .then(result => setPokemons(result.data.results))
+      // .catch(err => console.log(err))
       .catch((error) => {
         setError(error.message)
         console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false)
       })
   }
 
@@ -37,7 +56,7 @@ function App() {
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <hr />
       <ul className=''>
-        {pokemons && pokemons.map((pokemon, i ) => 
+        {pokemons && pokemons.map((pokemon, i) =>
           <li key={i} >{pokemon.name}</li>
         )}
       </ul>
