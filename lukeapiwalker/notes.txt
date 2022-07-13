@@ -1,0 +1,13 @@
+import useNavigate from react-route-dom
+
+onSubmit
+
+navigate(`/${noun}/${id}`)
+setup routes:
+
+
+<Route path="/planets/:id" element={<Planet />} />
+<Route path="/people/:id" element={<People />} />
+
+inside Planet or People component useParams to get the id from the URL
+then useEffect inside each component to axios get the data
