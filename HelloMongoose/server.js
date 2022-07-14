@@ -1,5 +1,5 @@
 const express = require("express");
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const app = express();
 
 // This will fire our mongoose.connect statement to initialize our database connection
