@@ -14,10 +14,10 @@ const Main = (props) => {
                 setLoaded(true);
             })
             .catch(err => console.error(err));
-    }, []);
+    }, [products]);
 
     const removeFromDom = _Id => {
-        setProducts(products.filter(product => product._id != _Id));
+        setProducts(products.filter(product => product._id !== _Id));
     }
 
     // Change all perpson and peopple to match current project

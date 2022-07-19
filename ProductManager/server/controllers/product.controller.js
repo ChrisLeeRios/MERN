@@ -14,7 +14,7 @@ module.exports.createProduct = (request, response) => {
         description
     })
         .then(product => response.json(product))
-        .catch(err => response.json(err));
+        .catch(err => response.status(400).json(err)); // Altered for validations
 }
 
 // Retrieve all from database 
@@ -36,9 +36,10 @@ module.exports.getProduct = (request, response) => {
 // Update one from database
 // Change the lines below
 module.exports.updateProduct = (request, response) => {
-    Product.findOneAndUpdate({_id: request.params._id}, request.body, {new:true})
+    // runValidators is needed for persiting validations
+    Product.findOneAndUpdate({_id: request.params._id}, request.body, {runValidators:true, new:true}) 
         .then(updatedProduct => response.json(updatedProduct))
-        .catch(err => response.json(err))
+        .catch(err => response.status(400).json(err)); // Altered for validations
 }
 
 // Delete one from database
