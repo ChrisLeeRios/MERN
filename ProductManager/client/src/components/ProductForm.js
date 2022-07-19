@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import {useNavigate } from "react-router-dom";
 export default () => {
     //keep track of what is being typed via useState hook
     // Change the use states to match current thingyyyyy
@@ -7,6 +8,7 @@ export default () => {
     const [title, setTitle] = useState("");  
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
+    const navigate = useNavigate();
     //handler when the form is submitted
     const onSubmitHandler = e => {
         //prevent default behavior of the submit
@@ -23,6 +25,7 @@ export default () => {
                 setTitle("");
                 setPrice("");
                 setDescription("");
+                navigate(`/`)
             })
             .catch(err=>console.log(err))
     }
