@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//can change whats said after localhost/
+// Change database name after localhost/
 mongoose.connect("mongodb://localhost/productmanager", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
