@@ -15,6 +15,8 @@ const Update = (props) => {
                 setTitle(res.data.title);
                 setPrice(res.data.price);
                 setDescription(res.data.description);
+                console.log(res.data)
+                console.log(_id)
             })
     }, [_id]);
     
@@ -40,7 +42,7 @@ const Update = (props) => {
                     <input type="text" 
                     name="title" 
                     value={title} 
-                    onChange={(e) => { setTitle(e.target.value) }} />
+                    onChange={(e) => { setTitle(e.target.value) }} /* placeholder={} */ />
                 </p>
                 <p>
                     <label>Price</label><br />

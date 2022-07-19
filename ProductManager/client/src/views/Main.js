@@ -16,16 +16,16 @@ const Main = (props) => {
             .catch(err => console.error(err));
     }, []);
 
-    // const removeFromDom = _Id => {
-    //     setProducts(products.filter(product => product._id != _Id));
-    // }
+    const removeFromDom = _Id => {
+        setProducts(products.filter(product => product._id != _Id));
+    }
 
     // Change all perpson and peopple to match current project
     return (
         <div>
             <ProductForm />
             <hr />
-            {loaded && <ProductList products={products} /* removeFromDom={removeFromDom} *//>}
+            {loaded && <ProductList products={products}  removeFromDom={removeFromDom} />}
         </div>
     )
 }
