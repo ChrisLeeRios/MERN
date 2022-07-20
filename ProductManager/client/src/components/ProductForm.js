@@ -8,6 +8,9 @@ const ProductForm = () => {
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
+    const [imgUrl, setImgUrl] = useState("");
+    const [expirationDate, setExpirationDate] = useState("");
+    const [isExpensive, setIsExpensive] = useState(false);
     //Create an array to store errors from the API
     const [errors, setErrors] = useState([]);
     // const navigate = useNavigate();
@@ -21,13 +24,19 @@ const ProductForm = () => {
         axios.post('http://localhost:8000/api/products', {
             title,
             price,
-            description
+            description,
+            imgUrl,
+            expirationDate,
+            isExpensive
         })
             .then((res) => {
                 console.log(res)
                 setTitle("");
                 setPrice("");
                 setDescription("");
+                setImgUrl("");
+                setExpirationDate("");
+                setIsExpensive(false);
                 // navigate("/products")
             })
             .catch(err => {
@@ -57,11 +66,23 @@ const ProductForm = () => {
             </div>
             <div className='form-group' >
                 <label>Price</label><br />
-                <input className='form-control' type="text" onChange={(e) => setPrice(e.target.value)} value={price} />
+                <input className='form-control' type="number" onChange={(e) => setPrice(e.target.value)} value={price} />
             </div>
             <div className='form-group' >
                 <label>Description</label><br />
                 <input className='form-control' type="text" onChange={(e) => setDescription(e.target.value)} value={description} />
+            </div>
+            <div className='form-group' >
+                <label>Image</label><br />
+                <input className='form-control' type="text" onChange={(e) => setImgUrl(e.target.value)} value={imgUrl} />
+            </div>
+            <div className='form-group' >
+                <label>Expiration Date</label><br />
+                <input className='form-control' type="date" onChange={(e) => setExpirationDate(e.target.value)} value={expirationDate} />
+            </div>
+            <div className='form-group d-flex gap-2' >
+                <input className='form-check-input' type="checkbox" onChange={(e) => setIsExpensive(e.target.checked)} value={isExpensive} />
+                <label> Is Expensive</label>
             </div>
             <input className='btn-primary mt-2' type="submit" />
         </form>

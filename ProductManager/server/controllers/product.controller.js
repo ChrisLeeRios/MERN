@@ -7,11 +7,14 @@ module.exports.index = (request, response) => {
 // Create something 
 // Change the lines below 
 module.exports.createProduct = (request, response) => {
-    const { title, price, description } = request.body;
+    const { title, price, description, imgUrl, expirationDate, isExpensive } = request.body;
     Product.create({
         title,
         price,
-        description
+        description,
+        imgUrl,
+        expirationDate,
+        isExpensive
     })
         .then(product => response.json(product))
         .catch(err => response.status(400).json(err)); // Altered for validations

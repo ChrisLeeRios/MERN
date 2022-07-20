@@ -20,13 +20,22 @@ const ProductList = (props) => {
         <div className='w-50 mx-auto' >
             {props.products.map((product, i) =>
                 <div className='text-center' key={i} >
+                    <p>Title: {product.title}</p>
+                    <p>Price: {product.price}</p>
+                    <p>Description: {product.description}</p>
+                    <img
+                        className="shadow rounded"
+                        width="20%"
+                        src={product.imgUrl}
+                        alt="Welp, no image bud"
+                    />
+                    <p>Expiration Date: {product.expirationDate}</p>
+                    {product.isExpensive === true && <p>This Is Expensive</p>}
+                    {product.isExpensive !== true && <p>This Is Cheap</p>}
                     <Link to={`/products/${product._id}`}>
-                        <p>Title: {product.title}
-                            <br />Price: {product.price}
-                            <br />Description: {product.description}</p>
+                        <button>Details</button>
                     </Link>
-
-                    <button  onClick={(e) => { deleteProduct(product._id) }}>
+                    <button onClick={(e) => { deleteProduct(product._id) }}>
                         Delete
                     </button>
                 </div>

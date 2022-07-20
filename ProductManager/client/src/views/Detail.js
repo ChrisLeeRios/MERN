@@ -26,12 +26,21 @@ const Detail = (props) => {
 
     // Change these lines to match current project route and states
     return (
-        <div>
-            <p>Title: {product.title}</p>
+        <div className='w-50 mx-auto text-center' >
+            <h2>{product.title}</h2>
             <p>Price: {product.price}</p>
             <p>Description: {product.description}</p>
+            <img
+                className="shadow rounded"
+                width="20%"
+                src={product.imgUrl}
+                alt="Welp, no image bud"
+            />
+            <p>Expiration Date: {product.expirationDate}</p>
+            {product.isExpensive === true && <p>This Is Expensive</p>}
+            {product.isExpensive !== true && <p>This Is Cheap</p>}
             <Link to={`/products/${product._id}/edit`}>
-                Edit
+                <button>Edit</button>
             </Link>
             <button onClick={(e) => { deleteProduct(product._id) }}>
                 Delete
