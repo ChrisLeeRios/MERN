@@ -46,23 +46,27 @@ const ProductForm = () => {
     }
     //onChange to update title and price and description
     return (
+        <div className='w-25 mx-auto'>
+
         <form onSubmit={onSubmitHandler}>
             {/* To display the errors add this line below  */}
             {errors.map((err, index) => <p key={index}>{err}</p>)}
-            <p>
+            <div className='form-group' >
                 <label>Title</label><br />
-                <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} />
-            </p>
-            <p>
+                <input className='form-control' type="text" onChange={(e) => setTitle(e.target.value)} value={title} />
+            </div>
+            <div className='form-group' >
                 <label>Price</label><br />
-                <input type="text" onChange={(e) => setPrice(e.target.value)} value={price} />
-            </p>
-            <p>
+                <input className='form-control' type="text" onChange={(e) => setPrice(e.target.value)} value={price} />
+            </div>
+            <div className='form-group' >
                 <label>Description</label><br />
-                <input type="text" onChange={(e) => setDescription(e.target.value)} value={description} />
-            </p>
-            <input type="submit" />
+                <input className='form-control' type="text" onChange={(e) => setDescription(e.target.value)} value={description} />
+            </div>
+            <input className='btn-primary mt-2' type="submit" />
         </form>
+
+        </div>
     )
 }
 

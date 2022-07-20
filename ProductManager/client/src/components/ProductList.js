@@ -17,9 +17,9 @@ const ProductList = (props) => {
     }
 
     return (
-        <div>
+        <div className='w-50 mx-auto' >
             {props.products.map((product, i) =>
-                <div  key={i}>
+                <div className='text-center' key={i} >
                     <Link to={`/products/${product._id}`}>
                         <p>Title: {product.title}
                             <br />Price: {product.price}
