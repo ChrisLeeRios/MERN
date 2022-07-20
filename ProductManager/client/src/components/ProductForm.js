@@ -5,12 +5,12 @@ const ProductForm = () => {
     //keep track of what is being typed via useState hook
     // Change the use states to match current thingyyyyy
 
-    const [title, setTitle] = useState("");
-    const [price, setPrice] = useState("");
-    const [description, setDescription] = useState("");
-    const [imgUrl, setImgUrl] = useState("");
-    const [expirationDate, setExpirationDate] = useState("");
-    const [isExpensive, setIsExpensive] = useState(false);
+    const [title, setTitle] = useState(""); //Change this line
+    const [price, setPrice] = useState(""); //Change this line
+    const [description, setDescription] = useState(""); //Change this line
+    const [imgUrl, setImgUrl] = useState(""); //Change this line
+    const [expirationDate, setExpirationDate] = useState(""); //Change this line
+    const [isExpensive, setIsExpensive] = useState(false); //Change this line
     //Create an array to store errors from the API
     const [errors, setErrors] = useState([]);
     // const navigate = useNavigate();
