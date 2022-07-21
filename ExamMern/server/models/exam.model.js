@@ -24,10 +24,20 @@ const ExamSchema = new mongoose.Schema({
         required: [true, "Image is required!"],
     },
     expirationDate: {
-        type: Date
+        type: String,
+        required: [true, "Position is required!"],
     },
     isExpensive: {
-        type: Boolean
+        type: Boolean,
+        required: [true, "Peg Leg is required!"],
+    },
+    eyePatch: {
+        type: Boolean,
+        required: [true, "Eye Patch is required!"],
+    },
+    hookHand: {
+        type: Boolean,
+        required: [true, "Hook Hand is required!"],
     },
 }, { timestamps: true });
 module.exports.Exam = mongoose.model('Exam', ExamSchema);
